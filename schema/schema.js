@@ -6,9 +6,9 @@ const { GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLID, GraphQLInt }
 
 // dummy data
 const movies = [
-    { name: 'The Thing', genre: 'Science fiction horror', id: '1'},
-    { name: 'Parasite', genre: 'Comedy thriller', id: '2'},
-    { name: 'The Lord of the Rings', genre: 'Fantasy', id: '3'}
+    { name: 'The Thing', genre: 'Science fiction horror', id: '1', directorId: '2'},
+    { name: 'Parasite', genre: 'Comedy thriller', id: '2', directorId: '1'},
+    { name: 'The Lord of the Rings', genre: 'Fantasy', id: '3', directorId: '3'}
 ];
 
 
@@ -24,7 +24,14 @@ const MovieType = new GraphQLObjectType({
     fields: () => ({
         id: { type: GraphQLID },
         name: { type: GraphQLString },
-        genre: { type: GraphQLString }
+        genre: { type: GraphQLString },
+        director: {
+            type: DirectorType,
+            resolve(parent, args){
+                console.log(parent);
+                return _.find(directors, { id: parent.directorId })
+            }
+        }
     })
 });
 
