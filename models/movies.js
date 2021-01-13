@@ -5,7 +5,7 @@ const movieSchema = new Schema({
     name: String,
     genre: String,
     year: Number,
-    directorID: String
+    directorId: String
 });
 
 module.exports = mongoose.model('Movie', movieSchema);
